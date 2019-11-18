@@ -1,2 +1,6 @@
 # java-concurrency-workshop
-java 多线程 java 高并发
+
+
+## 功能
+
+主要是有关java的一些高并发，多线程的例子
