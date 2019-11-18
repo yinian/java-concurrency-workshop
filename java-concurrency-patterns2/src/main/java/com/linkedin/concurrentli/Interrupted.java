@@ -1,0 +1,66 @@
+package com.linkedin.concurrentli;
+
+/**
+ * Utility methods for creating unchecked Runnables from lambdas throwing InterruptedException
+ * @Auther: viagra
+ * @Date: 2019/11/14 19:02
+ * @Description:
+ */
+public final class Interrupted {
+
+    @FunctionalInterface
+    public interface InterruptableRunnable<T, R> {
+        void run() throws InterruptedException;
+    }
+
+    private Interrupted() { }
+    /**
+     * Given an interruptable method, returns an unchecked Runnable.
+     * If an interruption does occur, the thread is re-interrupted and an UncheckedInterruptedException is thrown.
+     *
+     * @param r the InterruptableRunnable throwing a checked InterruptedException
+     * @return a Runnable that does not throw a checked exception
+     */
+    public static Runnable unchecked(InterruptableRunnable r) {
+
+        return ()->{
+            try {
+                r.run();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new UncheckedInterruptedException(e);
+            }
+        };
+    }
+
+    /**
+     * Given an interruptable method, returns an unchecked Runnable.
+     * If an interruption does occur, no exception is thrown and the Runnable immediately returns.
+     * The thread's state is not (re-)set to interrupted.
+     *
+     * @param r the InterruptableRunnable throwing a checked InterruptedException
+     * @return a Runnable that does not throw a checked exception, instead returning if one is thrown
+     */
+    public static Runnable ignored(InterruptableRunnable r) {
+
+        return () -> {
+            try {
+                r.run();
+            } catch (InterruptedException e) {
+                // do nothing
+            }
+        };
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+}
