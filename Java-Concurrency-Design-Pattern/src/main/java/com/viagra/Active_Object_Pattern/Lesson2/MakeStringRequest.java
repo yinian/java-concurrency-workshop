@@ -1,0 +1,26 @@
+package com.viagra.Active_Object_Pattern.Lesson2;
+
+import com.viagra.Active_Object_Pattern.Lesson1.FutureResult;
+import com.viagra.Active_Object_Pattern.Lesson1.Result;
+import com.viagra.Active_Object_Pattern.Lesson1.Servant;
+
+/**
+ * @Auther: viagra
+ * @Date: 2019/11/19 20:38
+ * @Description:
+ */
+public class MakeStringRequest extends MethodRequest<String> {
+    private final int count;
+    private final char fillchar;
+
+    public MakeStringRequest(Servant servant, FutureResult<String> future, int count, char fillchar) {
+        super(servant, future);
+        this.count = count;
+        this.fillchar = fillchar;
+    }
+
+    public void execute() {
+        Result<String> result = servant.makeString(count, fillchar);
+        future.setResult(result);
+    }
+}
