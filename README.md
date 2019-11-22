@@ -11,5 +11,5 @@
 
 [Java-Concurrency-Multithreading-in-Practice]:主要是对Java 多线程进行分类的例子
 
-[redis-distributed-lock]: redis分布式锁的实现
+[redis-distributed-lock]:redis分布式锁的实现
 
